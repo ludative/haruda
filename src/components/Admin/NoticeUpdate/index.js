@@ -21,7 +21,9 @@ class AdminNoticeUpdateComponent extends Component {
             <Button className="mr10" as={Link} to="/admin/notices">
               뒤로
             </Button>
-            <Button onClick={updateNoticeById}>수정</Button>
+            <Button mode="edit" onClick={updateNoticeById}>
+              수정
+            </Button>
           </div>
           <table className="table">
             <tbody>

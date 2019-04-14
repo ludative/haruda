@@ -20,8 +20,13 @@ export default class DiaryScheduleComponent extends Component {
             <div className="schedule__title">
               {schedule.title}
               <div className="btns">
-                <Button onClick={() => openPopup(schedule)}>수정</Button>
-                <Button onClick={() => deleteDiarySchedule(schedule.id)}>
+                <Button mode="edit" onClick={() => openPopup(schedule)}>
+                  수정
+                </Button>
+                <Button
+                  mode="delete"
+                  onClick={() => deleteDiarySchedule(schedule.id)}
+                >
                   삭제
                 </Button>
               </div>

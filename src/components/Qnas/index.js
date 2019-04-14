@@ -39,9 +39,13 @@ class QnasComponent extends Component {
               {dateFormat(qna.createdAt)}
               {/* 추후 아이콘으로 바뀌었으면 좋겠음 ㅠㅠ */}
               {qna.answer && (
-                <Button onClick={e => openQnaPopup(e, qna)}>수정</Button>
+                <Button mode="edit" onClick={e => openQnaPopup(e, qna)}>
+                  수정
+                </Button>
               )}
-              <Button onClick={e => deleteQnaById(e, qna.id)}>삭제</Button>
+              <Button mode="delete" onClick={e => deleteQnaById(e, qna.id)}>
+                삭제
+              </Button>
             </span>
           </div>
           <div className="accordian__content">
