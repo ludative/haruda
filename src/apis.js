@@ -116,8 +116,12 @@ export default {
       path: () => `${API_PATH}/diary-contents`
     },
     GET_BY_ID: {
-      method: 'GEt',
+      method: 'GET',
       path: ({ id }) => `${API_PATH}/diary-contents/${id}`
+    },
+    CREATE: {
+      method: 'POST',
+      path: () => `${API_PATH}/diary-contents`
     }
   },
 

@@ -77,6 +77,7 @@ export default class DiaryContainer extends Component {
       this.state.diaries && (
         <DiaryComponent
           state={this.state}
+          diaryId={this.props.diaryId}
           getDiariesById={this.getDiariesById.bind(this)}
           getDiaryById={this.getDiaryById.bind(this)}
         />

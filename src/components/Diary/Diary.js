@@ -1,13 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 
 import DiaryDetail from './DiaryDetail'
 
+import { Button } from '@/styled-ui'
 import dateFormat from '@/utils/dateFormat'
 
 export default class DiaryComponent extends Component {
   render() {
     const { diaries, diary, activeDiaryId } = this.props.state
-    const { getDiariesById, getDiaryById } = this.props
+    const { diaryId, getDiaryById } = this.props
 
     const diaryRows = diaries.map((timeline, index) => {
       return (
@@ -49,6 +51,18 @@ export default class DiaryComponent extends Component {
         </div>
       )
     })
-    return <div className="diary-timeline">{diaryRows}</div>
+    return (
+      <Fragment>
+        {/* 다이어리 search bar */}
+        <div className="diary__search-bar" />
+
+        <div className="btns">
+          <Button as={Link} to={`/diaries/new/${diaryId}`}>
+            다이어리 쓰기
+          </Button>
+        </div>
+        <div className="diary-timeline">{diaryRows}</div>
+      </Fragment>
+    )
   }
 }

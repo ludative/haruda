@@ -24,5 +24,19 @@ export default {
         else resolve(res.body)
       })
     )
+  },
+
+  createDiary: async function({ diary }) {
+    return new Promise((resolve, reject) =>
+      request(
+        APIS.DIARY_CONTENTS.CREATE.method,
+        APIS.DIARY_CONTENTS.CREATE.path()
+      )
+        .send(diary)
+        .end((err, res) => {
+          if (err) reject(res.body)
+          else resolve(res.body)
+        })
+    )
   }
 }

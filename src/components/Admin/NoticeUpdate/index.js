@@ -5,7 +5,7 @@ import {
   Button,
   FormGroup,
   FormControl,
-  FormTextarea
+  Textarea
 } from '@/styled-ui'
 
 class AdminNoticeUpdateComponent extends Component {
@@ -42,7 +42,7 @@ class AdminNoticeUpdateComponent extends Component {
                 <th>내용</th>
                 <td>
                   <FormGroup>
-                    <FormTextarea
+                    <Textarea
                       type="textarea"
                       name="content"
                       value={content}

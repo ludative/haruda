@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Button, FormGroup, FormControl, FormTextarea } from '@/styled-ui'
+import { Button, FormGroup, FormControl, Textarea } from '@/styled-ui'
 
 class QnaPopup extends Component {
   render() {
@@ -23,7 +23,7 @@ class QnaPopup extends Component {
             </FormGroup>
             <p>내용을 입력해주세요.</p>
             <FormGroup>
-              <FormTextarea
+              <Textarea
                 type="textarea"
                 name="question"
                 value={qna.question}

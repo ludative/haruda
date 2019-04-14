@@ -10,6 +10,7 @@ export const Button = styled.button`
   color: #ffffff;
   padding: 10px 20px;
   font-size: 15px;
+  display: inline-block;
   min-width: 60px;
   border: none;
   cursor: pointer;
@@ -69,7 +70,7 @@ export const FormControl = styled.input`
 `
 
 // input
-export const FormTextarea = styled.textarea`
+export const Textarea = styled.textarea`
   border-radius: 3px;
   border: 1px solid #b2bec3;
   padding: 5px 10px;
@@ -78,6 +79,7 @@ export const FormTextarea = styled.textarea`
   outline: 0;
   width: 100%;
   transition: 0.3s;
+  resize: none;
 
   &:focus {
     border-color: #a29bfe;

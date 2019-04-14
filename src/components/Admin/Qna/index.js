@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { SectionTitle, Button, FormGroup, FormTextarea } from '@/styled-ui'
+import { SectionTitle, Button, FormGroup, Textarea } from '@/styled-ui'
 
 class AdminQnaComponent extends Component {
   render() {
@@ -35,7 +35,7 @@ class AdminQnaComponent extends Component {
                 <th>답변</th>
                 <td>
                   <FormGroup>
-                    <FormTextarea
+                    <Textarea
                       type="textarea"
                       value={qna.answer || ''}
                       onChange={handleChangeAnswer}

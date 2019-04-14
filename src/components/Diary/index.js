@@ -36,9 +36,6 @@ export default class DiaryMainComponent extends Component {
             </li>
           </ul>
 
-          {/* 다이어리 search bar */}
-          <div className="diary__search-bar" />
-
           {/* 다이어리 */}
           {selectedDiaryTab === 'diary' && <DiaryContainer diaryId={diaryId} />}
           {/* 일정 */}
