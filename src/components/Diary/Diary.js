@@ -33,7 +33,15 @@ export default class DiaryComponent extends Component {
                     onClick={() => getDiaryById(content.id)}
                   >
                     <div className="diary__title">
-                      {content.title} {content.feeling} {content.weather}
+                      {content.title}{' '}
+                      <img
+                        src={`/images/feeling/icon_${content.feeling}.png`}
+                        alt={content.feeling}
+                      />{' '}
+                      <img
+                        src={`/images/weather/icon_${content.weather}.png`}
+                        alt={content.weather}
+                      />
                     </div>
                     <div className="diary__creator">
                       {content.User.name} {time[1]}
