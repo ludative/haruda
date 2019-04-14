@@ -10,6 +10,7 @@ import './style.scss'
 export default class DiaryEditComponent extends Component {
   render() {
     const {
+      DiaryId,
       title,
       weather,
       feeling,
@@ -134,7 +135,7 @@ export default class DiaryEditComponent extends Component {
 
           <div className="btns">
             <Button onClick={updateDiary}>수정</Button>
-            <Button as={Link} to={`/diaries/${this.props.DiaryId}`}>
+            <Button as={Link} to={`/diaries/${DiaryId}`}>
               취소
             </Button>
           </div>

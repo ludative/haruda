@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import { FormControl, Textarea, Button } from '@/styled-ui'
 
@@ -10,7 +11,7 @@ export default class DiaryNewComponent extends Component {
   render() {
     const { title, weather, feeling, content, images } = this.props.state
 
-    const { handleChange, createDiary, deleteImage } = this.props
+    const { DiaryId, handleChange, createDiary, deleteImage } = this.props
 
     return (
       <div className="section-diary-new">
@@ -128,7 +129,9 @@ export default class DiaryNewComponent extends Component {
 
           <div className="btns">
             <Button onClick={createDiary}>추가</Button>
-            <Button>취소</Button>
+            <Button as={Link} to={`/diaries/${DiaryId}`}>
+              취소
+            </Button>
           </div>
         </div>
       </div>

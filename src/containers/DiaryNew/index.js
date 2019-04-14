@@ -122,6 +122,7 @@ export default class DiaryNewContainer extends Component {
     return (
       <DiaryNewComponent
         state={this.state}
+        DiaryId={this.props.match.params.id}
         handleChange={this.handleChange}
         createDiary={this.createDiary}
         deleteImage={this.deleteImage}
