@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import DiaryContentActions from '@/actions/DiaryContents'
+import FileActions from '@/actions/File'
 
 import DiaryNewComponent from '@/components/DiaryNew'
 
@@ -10,64 +11,106 @@ export default class DiaryNewContainer extends Component {
     weather: 'sunny',
     feeling: 'normal',
     content: '',
-    image1: '',
-    image2: '',
-    image3: '',
-    image4: '',
-    image1Url: '',
-    image2Url: '',
-    image3Url: '',
-    image4Url: ''
+    images: [
+      { name: '', file: null, url: null },
+      { name: '', file: null, url: null },
+      { name: '', file: null, url: null },
+      { name: '', file: null, url: null }
+    ]
   }
 
-  handleChange = e => {
+  handleChange = (e, index) => {
     const state = { ...this.state }
 
     switch (e.target.name) {
-      case 'image1':
-      case 'image2':
-      case 'image3':
-      case 'image4':
+      case 'image':
         let file = e.target.files[0]
-        this.readFile(e.target.name, file)
+        const images = state.images.map(image => {
+          return { ...image }
+        })
+        const image = images[index]
+        image.name = e.target.value
 
-        state[e.target.name] = e.target.value
+        images.splice(index, 1, image)
+        state.images = images
+        this.setState(state, () => {
+          this.readFile(file, index)
+        })
         break
       default:
         state[e.target.name] = e.target.value
+        this.setState(state)
         break
     }
-
-    this.setState(state)
   }
 
-  readFile = (target, file) => {
+  readFile = (file, index) => {
     if (file) {
-      const state = { ...this.state }
+      const images = this.state.images.map(image => {
+        return { ...image }
+      })
 
       let reader = new FileReader()
       reader.readAsDataURL(file)
 
       reader.onloadend = () => {
+        const image = images[index]
+        image.file = file
+        image.url = reader.result
+
+        images.splice(index, 1, image)
         this.setState({
-          file,
-          imgUrl: reader.result
+          images
         })
       }
     }
   }
 
+  deleteImage = index => {
+    const images = this.state.images.map(image => {
+      return { ...image }
+    })
+
+    images.splice(index, 1)
+    images.push({
+      image: '',
+      file: null,
+      url: null
+    })
+
+    this.setState({
+      images
+    })
+  }
+
   createDiary = async () => {
     try {
       const { title, weather, feeling, content, images } = this.state
+
+      const updateImages = images.filter(image => {
+        return image.file && image.url
+      })
+
+      const promises = updateImages.map(image => {
+        return FileActions.uploadImage({
+          file: image.file
+        })
+      })
+
+      const promisesResult = await Promise.all(promises)
+
+      const imagesUrl = promisesResult.map(res => res.body.url)
+
       const diary = {
         title,
         weather,
         feeling,
         content,
-        images,
+        images: imagesUrl,
         DiaryId: this.props.match.params.id
       }
+
+      console.log('images,', images)
       console.log('diary', diary)
       // await DiaryContentActions.createDiary({ diary })
       // alert('다이어리 등록이 완료되었어요 :)')
@@ -83,6 +126,7 @@ export default class DiaryNewContainer extends Component {
         state={this.state}
         handleChange={this.handleChange}
         createDiary={this.createDiary}
+        deleteImage={this.deleteImage}
       />
     )
   }

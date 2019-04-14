@@ -8,17 +8,9 @@ import './style.scss'
 
 export default class DiaryNewComponent extends Component {
   render() {
-    const {
-      title,
-      weather,
-      feeling,
-      content,
-      image1,
-      image2,
-      image3,
-      image4
-    } = this.props.state
-    const { handleChange, createDiary } = this.props
+    const { title, weather, feeling, content, images } = this.props.state
+
+    const { handleChange, createDiary, deleteImage } = this.props
 
     return (
       <div className="section-diary-new">
@@ -107,50 +99,28 @@ export default class DiaryNewComponent extends Component {
                   사진 공유<br />(최대 4개까지 공유할 수 있어요!)
                 </th>
                 <td>
-                  <div className="diary-image">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      id="image1"
-                      name="image1"
-                      value={image1}
-                      onChange={handleChange}
-                    />
-                    <label htmlFor="image1" />
-                  </div>
-                  <div className="diary-image">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      id="image2"
-                      name="image2"
-                      value={image2}
-                      onChange={handleChange}
-                    />
-                    <label htmlFor="image2" />
-                  </div>
-                  <div className="diary-image">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      id="image3"
-                      name="image3"
-                      value={image3}
-                      onChange={handleChange}
-                    />
-                    <label htmlFor="image3" />
-                  </div>
-                  <div className="diary-image">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      id="image4"
-                      name="image4"
-                      value={image4}
-                      onChange={handleChange}
-                    />
-                    <label htmlFor="image4" />
-                  </div>
+                  {images.map((row, index) => {
+                    return (
+                      <div className="diary-image" key={index}>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          id={`image${index}`}
+                          name="image"
+                          value={row.name}
+                          onChange={e => handleChange(e, index)}
+                        />
+                        <label
+                          htmlFor={`image${index}`}
+                          style={{
+                            backgroundImage:
+                              row.url && row.file ? `url(${row.url})` : ''
+                          }}
+                        />
+                        <button onClick={() => deleteImage(index)}>x</button>
+                      </div>
+                    )
+                  })}
                 </td>
               </tr>
             </tbody>
