@@ -39,7 +39,7 @@
           border-left-color: $skyblue;
         }
         .diary__info:after {
-          transform: rotate(-180deg) translateY(50%);
+          transform: rotate(90deg) translateY(50%);
           color: $skyblue;
         }
       }
@@ -56,8 +56,7 @@
 
         &:after {
           transition: 0.3s;
-          content: '\f107';
-          font-family: 'Font Awesome 5 Free';
+          content: '>';
           font-weight: 800;
           font-size: 30px;
           color: $purple;

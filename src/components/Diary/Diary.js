@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import DiaryDetail from './DiaryDetail'
 
 import dateFormat from '@/utils/dateFormat'
-import { feelings, weathers } from '@/utils/diaryElements'
 
 export default class DiaryComponent extends Component {
   render() {
@@ -32,8 +31,7 @@ export default class DiaryComponent extends Component {
                     onClick={() => getDiaryById(content.id)}
                   >
                     <div className="diary__title">
-                      {content.title} {feelings(content.feeling)}{' '}
-                      {weathers(content.weather)}
+                      {content.title} {content.feeling} {content.weather}
                     </div>
                     <div className="diary__creator">
                       {content.User.name} {time[1]}
