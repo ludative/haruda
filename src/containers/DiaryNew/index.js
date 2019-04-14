@@ -107,14 +107,12 @@ export default class DiaryNewContainer extends Component {
         feeling,
         content,
         images: imagesUrl,
-        DiaryId: this.props.match.params.id
+        DiaryId: +this.props.match.params.id
       }
 
-      console.log('images,', images)
-      console.log('diary', diary)
-      // await DiaryContentActions.createDiary({ diary })
-      // alert('다이어리 등록이 완료되었어요 :)')
-      // this.props.history.push(`/diaries/${this.props.match.params.id}`)
+      await DiaryContentActions.createDiary({ diary })
+      alert('다이어리 등록이 완료되었어요 :)')
+      this.props.history.push(`/diaries/${this.props.match.params.id}`)
     } catch (err) {
       alert(err.errorMessage || err.message)
     }
