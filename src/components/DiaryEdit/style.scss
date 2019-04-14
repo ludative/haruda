@@ -1,0 +1,28 @@
+@import '~@/styles/shared/colors.scss';
+
+.section-diary-edit {
+  .diary-image {
+    display: inline-block;
+    margin-right: 15px;
+    input {
+      display: none;
+    }
+    label {
+      display: block;
+      width: 100px;
+      height: 100px;
+      background-repeat: no-repeat;
+      background-color: $gray;
+      border-radius: 3px;
+      background-image: url('/images/common/icon_camera.png');
+      background-position: center;
+      background-size: cover;
+      cursor: pointer;
+    }
+  }
+
+  .btns {
+    text-align: center;
+    margin: 50px 0;
+  }
+}

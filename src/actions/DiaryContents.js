@@ -1,4 +1,5 @@
-import request from '@/utils/tokenSuperagent'
+import request from 'superagent'
+import tokenRequest from '@/utils/tokenSuperagent'
 
 import APIS from '@/apis'
 
@@ -28,9 +29,23 @@ export default {
 
   createDiary: async function({ diary }) {
     return new Promise((resolve, reject) =>
-      request(
+      tokenRequest(
         APIS.DIARY_CONTENTS.CREATE.method,
         APIS.DIARY_CONTENTS.CREATE.path()
+      )
+        .send(diary)
+        .end((err, res) => {
+          if (err) reject(res.body)
+          else resolve(res.body)
+        })
+    )
+  },
+
+  updateDiary: async function({ id, diary }) {
+    return new Promise((resolve, reject) =>
+      tokenRequest(
+        APIS.DIARY_CONTENTS.UPDATE.method,
+        APIS.DIARY_CONTENTS.UPDATE.path({ id })
       )
         .send(diary)
         .end((err, res) => {

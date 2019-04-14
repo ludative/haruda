@@ -122,6 +122,10 @@ export default {
     CREATE: {
       method: 'POST',
       path: () => `${API_PATH}/diary-contents`
+    },
+    UPDATE: {
+      method: 'PUT',
+      path: ({ id }) => `${API_PATH}/diary-contents/${id}`
     }
   },
 

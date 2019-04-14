@@ -37,6 +37,10 @@ const AsyncDiaryNew = Loadable({
   loader: () => import('./containers/DiaryNew'),
   loading: LoadingComponent
 })
+const AsyncDiaryEdit = Loadable({
+  loader: () => import('./containers/DiaryEdit'),
+  loading: LoadingComponent
+})
 const AsyncDiaries = Loadable({
   loader: () => import('./containers/Diaries'),
   loading: LoadingComponent
@@ -163,6 +167,12 @@ export default class RouterContainer extends Component {
             exact
             path="/diaries/new/:id"
             component={AsyncDiaryNew}
+            props={this.props}
+          />
+          <AppliedRoute
+            exact
+            path="/diaries/edit/:id"
+            component={AsyncDiaryEdit}
             props={this.props}
           />
           <ProtectedRoute

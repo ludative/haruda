@@ -9,7 +9,7 @@ import dateFormat from '@/utils/dateFormat'
 export default class DiaryComponent extends Component {
   render() {
     const { diaries, diary, activeDiaryId } = this.props.state
-    const { diaryId, getDiaryById } = this.props
+    const { user, diaryId, getDiaryById } = this.props
 
     const diaryRows = diaries.map((timeline, index) => {
       return (
@@ -42,7 +42,14 @@ export default class DiaryComponent extends Component {
 
                   {diary &&
                     activeDiaryId === content.id && (
-                      <DiaryDetail diary={diary} />
+                      <Fragment>
+                        {content.User.id === user.id && (
+                          <Button as={Link} to={`/diaries/edit/${content.id}`}>
+                            수정
+                          </Button>
+                        )}
+                        <DiaryDetail diary={diary} />
+                      </Fragment>
                     )}
                 </div>
               )

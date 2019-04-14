@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
 
 import DiaryContentsActions from '@/actions/DiaryContents'
 
@@ -6,6 +7,8 @@ import DiaryComponent from '@/components/Diary/Diary'
 
 import pagination from '@/utils/pagination'
 
+@inject('authStore')
+@observer
 export default class DiaryContainer extends Component {
   state = {
     diaries: null,
@@ -77,6 +80,7 @@ export default class DiaryContainer extends Component {
       this.state.diaries && (
         <DiaryComponent
           state={this.state}
+          user={this.props.authStore.user}
           diaryId={this.props.diaryId}
           getDiariesById={this.getDiariesById.bind(this)}
           getDiaryById={this.getDiaryById.bind(this)}
