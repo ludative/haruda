@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { UserProfile, Button } from '@/styled-ui'
+import { Button } from '@/styled-ui'
 import dateFormat from '@/utils/dateFormat'
 
 export default class DiaryTodoListComponent extends Component {
@@ -16,29 +16,35 @@ export default class DiaryTodoListComponent extends Component {
     const todoListRows = todoList.map((todo, index) => {
       return (
         <div key={index} className="todo">
-          <div className="profile">
-            <UserProfile
-              medium="true"
-              style={{
-                backgroundImage:
-                  todo.User.profileImage && `url(${todo.User.profileImage})`
-              }}
-            />
+          <div className="checkbox">
+            <label>
+              <input
+                type="checkbox"
+                checked={todo.isCompleted}
+                onClick={() => completeTodoList(todo)}
+              />
+              <div className="icon" />
+              <span>{todo.title}</span>
+            </label>
           </div>
-          <div className="content">
-            <p className="title">{todo.title}</p>
-            <p className="user">{`${todo.User.name} (${todo.User.email})`}</p>
-            <p>추가일 : {dateFormat(todo.createdAt)}</p>
-            {user.id === todo.UserId && (
-              <div className="btns">
-                <Button onClick={() => openPopup(todo)}>수정</Button>
-                <Button onClick={() => completeTodoList(todo)}>완료</Button>
-                <Button onClick={() => deleteDiaryTodoList(todo.id)}>
-                  삭제
-                </Button>
-              </div>
-            )}
-          </div>
+          <p className="user">
+            added by. {`${todo.User.name} (${todo.User.email})`}
+          </p>
+          <p>{dateFormat(todo.createdAt)}</p>
+          {user.id === todo.UserId && (
+            <div className="btns">
+              <Button mode="edit" onClick={() => openPopup(todo)}>
+                수정
+              </Button>
+              {/* <Button onClick={() => completeTodoList(todo)}>완료</Button> */}
+              <Button
+                mode="delete"
+                onClick={() => deleteDiaryTodoList(todo.id)}
+              >
+                삭제
+              </Button>
+            </div>
+          )}
         </div>
       )
     })
@@ -46,27 +52,27 @@ export default class DiaryTodoListComponent extends Component {
     const completedTodoListRows = completedTodoList.map((todo, index) => {
       return (
         <div key={index} className="todo">
-          <div className="profile">
-            <UserProfile
-              medium="true"
-              style={{
-                backgroundImage:
-                  todo.User.profileImage && `url(${todo.User.profileImage})`
-              }}
-            />
+          <div className="checkbox">
+            <label>
+              <input type="checkbox" checked={todo.isCompleted} />
+              <div className="icon" />
+              <span>{todo.title}</span>
+            </label>
           </div>
-          <div className="content">
-            <p className="title">{todo.title}</p>
-            <p className="user">{`${todo.User.name} (${todo.User.email})`}</p>
-            <p>완료일 : {dateFormat(todo.updatedAt)}</p>
-            {user.id === todo.UserId && (
-              <div className="btns">
-                <Button onClick={() => deleteDiaryTodoList(todo.id)}>
-                  삭제
-                </Button>
-              </div>
-            )}
-          </div>
+          <p className="user">
+            added by. {`${todo.User.name} (${todo.User.email})`}
+          </p>
+          <p>{dateFormat(todo.updatedAt)}</p>
+          {user.id === todo.UserId && (
+            <div className="btns">
+              <Button
+                mode="delete"
+                onClick={() => deleteDiaryTodoList(todo.id)}
+              >
+                삭제
+              </Button>
+            </div>
+          )}
         </div>
       )
     })
@@ -78,14 +84,8 @@ export default class DiaryTodoListComponent extends Component {
           <Button onClick={() => openPopup()}>추가</Button>
         </div>
         <div className="list-wrapper">
-          <div className="list incompleted">
-            To do list
-            {todoListRows}
-          </div>
-          <div className="list completed">
-            완료!!
-            {completedTodoListRows}
-          </div>
+          <div className="list incompleted">{todoListRows}</div>
+          <div className="list completed">{completedTodoListRows}</div>
         </div>
       </div>
     )

@@ -190,7 +190,11 @@ a {
       background-color: transparent;
       position: relative;
     }
+  }
+}
 
+.radio {
+  label {
     input:checked + .icon:before {
       content: '';
       width: 30px;
@@ -202,6 +206,25 @@ a {
       background: url('/images/common/icon_check.png') no-repeat center
         transparent;
       background-size: cover;
+    }
+  }
+}
+
+.checkbox {
+  label {
+    display: flex;
+    align-items: center;
+
+    .icon {
+      background-image: url('/images/common/icon_unchecked.png');
+    }
+
+    input:checked + .icon {
+      background-image: url('/images/common/icon_checked.png');
+    }
+
+    .icon + span {
+      margin-left: 5px;
     }
   }
 }

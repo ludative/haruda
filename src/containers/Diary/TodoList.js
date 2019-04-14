@@ -42,14 +42,16 @@ export default class DiaryTodoListContainer extends Component {
 
   async completeTodoList(todo) {
     try {
-      if (window.confirm('해당 사항을 완료하셨습니까?')) {
+      if (window.confirm('해당 사항을 완료하셨나요?')) {
         todo.isCompleted = true
         await DiaryTodoListActions.updateDiaryTodoList({
           todo
         })
 
-        alert('변경되었습니다!')
+        alert('변경되었습니다 :)')
         await this.getDiaryTodoList()
+      } else {
+        return false
       }
     } catch (err) {
       alert(err.errorMessage || err.message)

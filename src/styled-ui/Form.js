@@ -28,13 +28,22 @@ export const Button = styled.button`
   }
 
   ${props =>
-    props.icon &&
+    props.mode &&
     css`
-      padding-right: 35px;
+      min-width: auto;
+      width: 20px;
+      height: 20px;
+      background-color: transparent;
       background-repeat: no-repeat;
-      background-position: center right 10px;
-      background-image: url('/images/common/icon_${props.icon_name}.png');
-      background-size: 20px;
+      background-position: center;
+      background-image: url('/images/common/icon_${props.mode}.png');
+      background-size: cover;
+      padding: 0;
+      font-size: 0;
+
+      &:hover {
+        background-color: transparent;
+      }
     `};
 `
 
