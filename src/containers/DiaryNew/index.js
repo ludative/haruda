@@ -73,7 +73,7 @@ export default class DiaryNewContainer extends Component {
 
     images.splice(index, 1)
     images.push({
-      image: '',
+      name: '',
       file: null,
       url: null
     })
