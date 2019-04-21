@@ -70,6 +70,10 @@ export default {
   },
 
   DIARIES: {
+    GET_BY_ID: {
+      method: 'GET',
+      path: ({ diaryId }) => `${API_PATH}/diaries/${diaryId}`
+    },
     SEARCH_BY_ID: {
       method: 'GET',
       path: () => `${API_PATH}/diaries/search`

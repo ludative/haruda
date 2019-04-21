@@ -29,5 +29,17 @@ export default {
           else resolve(res.body)
         })
     )
+  },
+
+  getDiaryById: async function({ diaryId }) {
+    return new Promise((resolve, reject) =>
+      request(
+        APIS.DIARIES.GET_BY_ID.method,
+        APIS.DIARIES.GET_BY_ID.path({ diaryId })
+      ).end((err, res) => {
+        if (err) reject(res.body)
+        else resolve(res.body)
+      })
+    )
   }
 }

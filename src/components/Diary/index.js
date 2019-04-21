@@ -5,15 +5,17 @@ import DiaryTodoListContainer from '@/containers/Diary/TodoList'
 import DiaryScheduleContainer from '@/containers/Diary/Schedule'
 
 import './style.scss'
+import dateFormat from '@/utils/dateFormat'
 
 export default class DiaryMainComponent extends Component {
   render() {
-    const { selectedDiaryTab } = this.props.state
+    const { selectedDiaryTab, diary } = this.props.state
     const { diaryId, selectDiaryTab } = this.props
 
     return (
       <div className="section-diary">
         <div className="container">
+          {diary.title} {diary.desc} {dateFormat(diary.createdAt)}
           {/* 다이어리 탭 */}
           <ul className="diary__tab">
             <li
@@ -35,7 +37,6 @@ export default class DiaryMainComponent extends Component {
               To do list
             </li>
           </ul>
-
           {/* 다이어리 */}
           {selectedDiaryTab === 'diary' && <DiaryContainer diaryId={diaryId} />}
           {/* 일정 */}

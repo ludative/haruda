@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 
+import DiaryActions from '@/actions/Diary'
 import UserDiaryActions from '@/actions/UserDiaries'
 
 import DiaryMainComponent from '@/components/Diary'
@@ -9,12 +10,14 @@ import DiaryMainComponent from '@/components/Diary'
 @observer
 export default class DiaryMainContainer extends Component {
   state = {
+    diary: null,
     selectedDiaryTab: 'diary'
   }
 
   async componentDidMount() {
     const validInfo = this.props.diaryStore.validInfo
     if (this.props.authStore.getUser) {
+      await this.getDiaryById()
       const userDiaryResult = await this.validUserDiary()
       if (userDiaryResult) {
         if (!userDiaryResult.isUserDiary) {
@@ -73,13 +76,26 @@ export default class DiaryMainContainer extends Component {
     })
   }
 
+  getDiaryById = async () => {
+    try {
+      const diary = await DiaryActions.getDiaryById({
+        diaryId: this.props.match.params.id
+      })
+      this.setState({ diary })
+    } catch (err) {
+      alert(err.errorMessage || err.message)
+    }
+  }
+
   render() {
     return (
-      <DiaryMainComponent
-        state={this.state}
-        diaryId={+this.props.match.params.id}
-        selectDiaryTab={this.selectDiaryTab}
-      />
+      this.state.diary && (
+        <DiaryMainComponent
+          state={this.state}
+          diaryId={+this.props.match.params.id}
+          selectDiaryTab={this.selectDiaryTab}
+        />
+      )
     )
   }
 }
