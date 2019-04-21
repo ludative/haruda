@@ -28,7 +28,8 @@ export default class DiaryComponent extends Component {
       handleKeyPress,
       createDiaryComment,
       deleteDiaryCommentById,
-      updateDiaryCommentById
+      updateDiaryCommentById,
+      deleteDiaryById
     } = this.props
 
     const diaryRows = diaries.map((timeline, index) => {
@@ -72,9 +73,17 @@ export default class DiaryComponent extends Component {
                     activeDiaryId === content.id && (
                       <Fragment>
                         {content.User.id === user.id && (
-                          <Button as={Link} to={`/diaries/edit/${content.id}`}>
-                            수정
-                          </Button>
+                          <Fragment>
+                            <Button onClick={() => deleteDiaryById(content.id)}>
+                              삭제
+                            </Button>
+                            <Button
+                              as={Link}
+                              to={`/diaries/edit/${content.id}`}
+                            >
+                              수정
+                            </Button>
+                          </Fragment>
                         )}
                         <DiaryDetail
                           user={user}

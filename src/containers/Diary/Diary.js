@@ -168,6 +168,15 @@ export default class DiaryContainer extends Component {
     }
   }
 
+  deleteDiaryById = async id => {
+    try {
+      await DiaryContentsActions.deleteDiaryById({ id })
+      await this.getDiariesById(1)
+    } catch (err) {
+      alert(err.errorMessage || err.message)
+    }
+  }
+
   render() {
     return (
       this.state.diaries && (
@@ -183,6 +192,7 @@ export default class DiaryContainer extends Component {
           createDiaryComment={this.createDiaryComment}
           deleteDiaryCommentById={this.deleteDiaryCommentById}
           updateDiaryCommentById={this.updateDiaryCommentById}
+          deleteDiaryById={this.deleteDiaryById}
         />
       )
     )

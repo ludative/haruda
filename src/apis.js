@@ -130,6 +130,10 @@ export default {
     UPDATE: {
       method: 'PUT',
       path: ({ id }) => `${API_PATH}/diary-contents/${id}`
+    },
+    DELETE_BY_ID: {
+      method: 'DELETE',
+      path: ({ id }) => `${API_PATH}/diary-contents/${id}`
     }
   },
 

@@ -53,5 +53,16 @@ export default {
           else resolve(res.body)
         })
     )
+  },
+  deleteDiaryById: async function({ id }) {
+    return new Promise((resolve, reject) =>
+      tokenRequest(
+        APIS.DIARY_CONTENTS.DELETE_BY_ID.method,
+        APIS.DIARY_CONTENTS.DELETE_BY_ID.path({ id })
+      ).end((err, res) => {
+        if (err) reject(res.body)
+        else resolve(res.body)
+      })
+    )
   }
 }
