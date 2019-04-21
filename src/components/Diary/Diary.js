@@ -8,8 +8,32 @@ import dateFormat from '@/utils/dateFormat'
 
 export default class DiaryComponent extends Component {
   render() {
-    const { diaries, diary, activeDiaryId } = this.props.state
-    const { user, diaryId, getDiaryById } = this.props
+    const {
+      diaries,
+      diary,
+      activeDiaryId,
+      diaryComments,
+      comment,
+      commentPage,
+      commentPageSize,
+      commentNumberOfPages,
+      commentCount,
+      isEditMode,
+      editComment
+    } = this.props.state
+    const {
+      user,
+      diaryId,
+      getDiaryById,
+      getDiaryContentComments,
+      handleChange,
+      handleKeyPress,
+      createDiaryComment,
+      deleteDiaryCommentById,
+      startEditMode,
+      cancelEditMode,
+      updateDiaryCommentById
+    } = this.props
 
     const diaryRows = diaries.map((timeline, index) => {
       return (
@@ -56,7 +80,26 @@ export default class DiaryComponent extends Component {
                             수정
                           </Button>
                         )}
-                        <DiaryDetail diary={diary} />
+                        <DiaryDetail
+                          user={user}
+                          diary={diary}
+                          diaryComments={diaryComments}
+                          comment={comment}
+                          commentPage={commentPage}
+                          commentPageSize={commentPageSize}
+                          commentNumberOfPages={commentNumberOfPages}
+                          commentCount={commentCount}
+                          isEditMode={isEditMode}
+                          editComment={editComment}
+                          getDiaryContentComments={getDiaryContentComments}
+                          handleChange={handleChange}
+                          handleKeyPress={handleKeyPress}
+                          createDiaryComment={createDiaryComment}
+                          deleteDiaryCommentById={deleteDiaryCommentById}
+                          startEditMode={startEditMode}
+                          cancelEditMode={cancelEditMode}
+                          updateDiaryCommentById={updateDiaryCommentById}
+                        />
                       </Fragment>
                     )}
                 </div>

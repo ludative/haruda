@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 
 import DiaryContentsActions from '@/actions/DiaryContents'
+import DiaryContentCommentsActions from '@/actions/DiaryContentComments'
 
 import DiaryComponent from '@/components/Diary/Diary'
 
@@ -18,14 +19,21 @@ export default class DiaryContainer extends Component {
     endDate: '',
     title: '',
     diary: null,
-    activeDiaryId: ''
+    activeDiaryId: '',
+    commentPage: 1,
+    commentPageSize: 10,
+    commentNumberOfPages: 0,
+    commentCount: 0,
+    diaryComments: [],
+    comment: '',
+    isEditMode: false
   }
 
   async componentDidMount() {
     await this.getDiariesById()
   }
 
-  async getDiariesById(page) {
+  getDiariesById = async page => {
     const { pageSize, startDate, endDate, title } = this.state
     const searchOpion = {
       DiaryId: this.props.diaryId,
@@ -54,7 +62,7 @@ export default class DiaryContainer extends Component {
     }
   }
 
-  async getDiaryById(id) {
+  getDiaryById = async id => {
     if (this.state.activeDiaryId !== id) {
       try {
         const diary = await DiaryContentsActions.getDiaryById({ id })
@@ -65,6 +73,7 @@ export default class DiaryContainer extends Component {
         })
         const activeDiary = document.getElementById(`diary-${id}`)
         window.scrollTo(0, activeDiary.offsetTop - 60)
+        await this.getDiaryContentComments(1)
       } catch (err) {
         alert(err.errorMessage || err.message)
       }
@@ -75,6 +84,101 @@ export default class DiaryContainer extends Component {
     }
   }
 
+  getDiaryContentComments = async page => {
+    const { activeDiaryId, commentPageSize } = this.state
+
+    try {
+      const searchOption = {
+        page,
+        pageSize: commentPageSize,
+        DiaryContentId: activeDiaryId
+      }
+      const result = await DiaryContentCommentsActions.getDiaryContentComments(
+        searchOption
+      )
+
+      const calculatePagination = pagination({
+        page,
+        pageSize: commentPageSize,
+        count: result.count
+      })
+
+      this.setState({
+        commentPage: calculatePagination.page,
+        commentNumberOfPages: calculatePagination.numberOfPages,
+        commentCount: calculatePagination.count,
+        diaryComments: result.rows
+      })
+    } catch (err) {
+      alert(err.errorMessage || err.message)
+    }
+  }
+
+  handleChange = e => {
+    const state = { ...this.state }
+    switch (e.target.name) {
+      default:
+        state[e.target.name] = e.target.value
+        break
+    }
+    this.setState(state)
+  }
+
+  handleKeyPress = async e => {
+    if (e.keyCode === 13 || e.key === 'Enter') {
+      await this.createDiaryComment()
+    }
+  }
+
+  createDiaryComment = async () => {
+    try {
+      await DiaryContentCommentsActions.createDiaryComment({
+        comment: this.state.comment,
+        DiaryContentId: this.state.activeDiaryId
+      })
+
+      this.setState({
+        comment: ''
+      })
+      await this.getDiaryContentComments(1)
+    } catch (err) {
+      alert(err.errorMessage || err.message)
+    }
+  }
+
+  deleteDiaryCommentById = async commentId => {
+    try {
+      await DiaryContentCommentsActions.deleteDiaryCommentById({ commentId })
+      alert('댓글 삭제가 완료되었습니다.')
+      await this.getDiaryContentComments(1)
+    } catch (err) {
+      alert(err.errorMessage || err.message)
+    }
+  }
+
+  startEditMode = () => {
+    this.setState({
+      isEditMode: true
+    })
+  }
+
+  cancelEditMode = () => {
+    this.setState({
+      editComment: '',
+      isEditMode: false
+    })
+  }
+
+  updateeDiaryCommentById = async commentId => {
+    try {
+      await DiaryContentCommentsActions.updateDiaryCommentById({ commentId })
+      alert('댓글 수정이 완료되었습니다.')
+      await this.getDiaryContentComments(1)
+    } catch (err) {
+      alert(err.errorMessage || err.message)
+    }
+  }
+
   render() {
     return (
       this.state.diaries && (
@@ -82,8 +186,16 @@ export default class DiaryContainer extends Component {
           state={this.state}
           user={this.props.authStore.user}
           diaryId={this.props.diaryId}
-          getDiariesById={this.getDiariesById.bind(this)}
-          getDiaryById={this.getDiaryById.bind(this)}
+          getDiariesById={this.getDiariesById}
+          getDiaryById={this.getDiaryById}
+          getDiaryContentComments={this.getDiaryContentComments}
+          handleChange={this.handleChange}
+          handleKeyPress={this.handleKeyPress}
+          createDiaryComment={this.createDiaryComment}
+          deleteDiaryCommentById={this.deleteDiaryCommentById}
+          updateeDiaryCommentById={this.updateeDiaryCommentById}
+          startEditMode={this.startEditMode}
+          cancelEditMode={this.cancelEditMode}
         />
       )
     )

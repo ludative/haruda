@@ -129,6 +129,25 @@ export default {
     }
   },
 
+  DIARY_CONTENT_COMMENTS: {
+    GET: {
+      method: 'GET',
+      path: () => `${API_PATH}/diary-content-comments`
+    },
+    CREATE: {
+      method: 'POST',
+      path: () => `${API_PATH}/diary-content-comments`
+    },
+    UPDATE: {
+      method: 'PUT',
+      path: ({ commentId }) => `${API_PATH}/diary-content-comments/${commentId}`
+    },
+    DELETE_BY_ID: {
+      method: 'DELETE',
+      path: ({ commentId }) => `${API_PATH}/diary-content-comments/${commentId}`
+    }
+  },
+
   DIARY_TODO_LIST: {
     GET: {
       method: 'GET',
