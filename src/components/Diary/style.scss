@@ -39,6 +39,7 @@
           border-left-color: $skyblue;
         }
         .diary__info:after {
+          top: calc(50% - 19px);
           transform: rotate(90deg) translateY(50%);
           color: $skyblue;
         }
