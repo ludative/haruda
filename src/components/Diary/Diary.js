@@ -17,9 +17,7 @@ export default class DiaryComponent extends Component {
       commentPage,
       commentPageSize,
       commentNumberOfPages,
-      commentCount,
-      isEditMode,
-      editComment
+      commentCount
     } = this.props.state
     const {
       user,
@@ -30,8 +28,6 @@ export default class DiaryComponent extends Component {
       handleKeyPress,
       createDiaryComment,
       deleteDiaryCommentById,
-      startEditMode,
-      cancelEditMode,
       updateDiaryCommentById
     } = this.props
 
@@ -89,15 +85,11 @@ export default class DiaryComponent extends Component {
                           commentPageSize={commentPageSize}
                           commentNumberOfPages={commentNumberOfPages}
                           commentCount={commentCount}
-                          isEditMode={isEditMode}
-                          editComment={editComment}
                           getDiaryContentComments={getDiaryContentComments}
                           handleChange={handleChange}
                           handleKeyPress={handleKeyPress}
                           createDiaryComment={createDiaryComment}
                           deleteDiaryCommentById={deleteDiaryCommentById}
-                          startEditMode={startEditMode}
-                          cancelEditMode={cancelEditMode}
                           updateDiaryCommentById={updateDiaryCommentById}
                         />
                       </Fragment>

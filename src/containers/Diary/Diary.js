@@ -25,8 +25,7 @@ export default class DiaryContainer extends Component {
     commentNumberOfPages: 0,
     commentCount: 0,
     diaryComments: [],
-    comment: '',
-    isEditMode: false
+    comment: ''
   }
 
   async componentDidMount() {
@@ -156,22 +155,12 @@ export default class DiaryContainer extends Component {
     }
   }
 
-  startEditMode = () => {
-    this.setState({
-      isEditMode: true
-    })
-  }
-
-  cancelEditMode = () => {
-    this.setState({
-      editComment: '',
-      isEditMode: false
-    })
-  }
-
-  updateeDiaryCommentById = async commentId => {
+  updateDiaryCommentById = async (editComment, commentId) => {
     try {
-      await DiaryContentCommentsActions.updateDiaryCommentById({ commentId })
+      await DiaryContentCommentsActions.updateDiaryCommentById({
+        comment: editComment,
+        commentId
+      })
       alert('댓글 수정이 완료되었습니다.')
       await this.getDiaryContentComments(1)
     } catch (err) {
@@ -193,9 +182,7 @@ export default class DiaryContainer extends Component {
           handleKeyPress={this.handleKeyPress}
           createDiaryComment={this.createDiaryComment}
           deleteDiaryCommentById={this.deleteDiaryCommentById}
-          updateeDiaryCommentById={this.updateeDiaryCommentById}
-          startEditMode={this.startEditMode}
-          cancelEditMode={this.cancelEditMode}
+          updateDiaryCommentById={this.updateDiaryCommentById}
         />
       )
     )

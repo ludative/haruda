@@ -30,15 +30,17 @@ export default {
         })
     )
   },
-  updateDiaryCommentById: async function({ commentId }) {
+  updateDiaryCommentById: async function({ comment, commentId }) {
     return new Promise((resolve, reject) =>
       request(
         APIS.DIARY_CONTENT_COMMENTS.UPDATE.method,
         APIS.DIARY_CONTENT_COMMENTS.UPDATE.path({ commentId })
-      ).end((err, res) => {
-        if (err) reject(res.body)
-        else resolve(res.body)
-      })
+      )
+        .send({ comment })
+        .end((err, res) => {
+          if (err) reject(res.body)
+          else resolve(res.body)
+        })
     )
   },
   deleteDiaryCommentById: async function({ commentId }) {
