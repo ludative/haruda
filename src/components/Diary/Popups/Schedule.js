@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Button, FormGroup, FormControl } from '@/styled-ui'
 import DatePicker from 'react-datepicker'
-import koLocale from 'date-fns/locale/ko'
+// import koLocale from 'date-fns/locale/ko'
 
 export default class DiarySchedulePopup extends Component {
   render() {

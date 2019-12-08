@@ -122,11 +122,11 @@ export default class DiaryEditContainer extends Component {
       let updateImages = []
       let images = []
 
-      diaryContentImages.filter(image => {
+      diaryContentImages.forEach(image => {
         if (image.file) {
-          return updateImages.push(image)
+          updateImages.push(image)
         } else if (image.url) {
-          return images.push(image.url)
+          images.push(image.url)
         }
       })
 

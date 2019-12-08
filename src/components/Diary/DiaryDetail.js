@@ -1,7 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Slider from 'react-slick'
-import { Button, FormControl } from '@/styled-ui'
-import dateFormat from '@/utils/dateFormat'
+import { FormControl } from '@/styled-ui'
 
 import DiaryCommentRow from './DiaryCommentRow'
 import Pagination from '@/components/Common/Pagination'
@@ -23,7 +22,7 @@ export default class DiaryDetail extends Component {
       getDiaryContentComments,
       handleChange,
       handleKeyPress,
-      createDiaryComment,
+      // createDiaryComment,
       deleteDiaryCommentById,
       updateDiaryCommentById,
       startEditMode,

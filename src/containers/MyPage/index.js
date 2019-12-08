@@ -114,6 +114,8 @@ export default class MyPageContainer extends Component {
     }
   }
 
+  getUserDiaries = async () => {}
+
   render() {
     return (
       this.state.user && (

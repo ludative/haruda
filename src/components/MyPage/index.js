@@ -61,6 +61,11 @@ export default class MyPageComponent extends Component {
               </Button>
             </div>
           </div>
+
+          <SectionTitle>내다이어리</SectionTitle>
+          <div className="mypage__my-diaries">
+            <ul />
+          </div>
         </div>
       </div>
     )
